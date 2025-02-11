@@ -11,6 +11,18 @@ local Tab = Window:MakeTab({
 
 Tab:AddLabel("Script made by user885325")
 Tab:AddLabel("I'm not responsible for any bans/slap resets!!! ")
+Tab:AddButton({
+	Name = "Copy Discord Invite",
+	Callback = function()
+      	setclipboard("https://discord.gg/FechNWc2fZ")
+        OrionLib:MakeNotification({
+	        Name = "Copied to clipboard!",
+	        Content = "The invite link has been copied to your clipboard!",
+	        Image = "rbxassetid://4483345998",
+	        Time = 5
+        })
+  	end    
+})
 
 local Tab2 = Window:MakeTab({
     Name = "Safe",
