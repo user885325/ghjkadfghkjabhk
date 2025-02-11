@@ -1,4 +1,6 @@
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/user885325/ghjkadfghkjabhk/refs/heads/main/sb_anticheatbypass.lua"))()
+
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/user885325/uilibs/refs/heads/main/orion.lua"))()
 local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏",Name = "Slap Battles Slap Farm GUI", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionConfig"})
 
 local Tab = Window:MakeTab({
@@ -12,7 +14,7 @@ Tab:AddLabel("I'm not responsible for any bans/slap resets!!! ")
 
 local Tab2 = Window:MakeTab({
     Name = "Safe",
-    Icon = "rbxassetid://7734059180",
+    Icon = "rbxassetid://7734059095",
     PremiumOnly = false
 })
 
@@ -35,7 +37,41 @@ end
 	end    
 })
 
+local toggle = false
+
 Tab2:AddToggle({
+    Name = "Orbit Glove Infinite Orbit Speed",
+    Default = false,
+    Callback = function(state)
+        toggle = state
+        while toggle do
+            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local gloves = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("OrbitGloves")
+                if gloves then
+                    gloves.HingePart.HingeConstraint.AngularVelocity = -99999
+                end
+            end
+            wait(0.1)
+        end
+        if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local gloves = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("OrbitGloves")
+            if gloves then
+                gloves.HingePart.HingeConstraint.AngularVelocity = 99999
+                wait(0.3)
+                gloves.HingePart.HingeConstraint.AngularVelocity = -5
+            end
+        end
+    end
+})
+
+local ToggleEnabled = false
+local Tab3 = Window:MakeTab({
+    Name = "Semi-Safe",
+    Icon = "rbxassetid://7733993147",
+    PremiumOnly = false
+})
+
+Tab3:AddToggle({
     Name = "Baller Slap Farm (use ability yourself)",
     Default = false,
     Callback = function(Value)
@@ -56,21 +92,134 @@ Tab2:AddToggle({
     end
 })
 
+Tab3:AddSlider({
+    Name = "Glove Hitbox",
+    Min = 0,
+    Max = 20,
+    Default = 2.5,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 0.5,
+    ValueName = "Size",
+    Callback = function(Value)
+        local player = game.Players.LocalPlayer
+
+        local function checkTools()
+            for _, tool in ipairs(player.Backpack:GetChildren()) do
+                if tool:IsA("Tool") and tool:FindFirstChild("Glove") then
+                    local realGlove = tool.Glove
+                    local fakeGlove = tool:FindFirstChild("FakeGlove")
+                    if not fakeGlove then
+                        fakeGlove = realGlove:Clone()
+                        fakeGlove.Name = "FakeGlove"
+                        fakeGlove.Parent = tool
+                        fakeGlove.Anchored = true
+                        fakeGlove.CanCollide = false
+                        fakeGlove.Transparency = 0 
+                    end
+                    for _, child in ipairs(realGlove:GetChildren()) do
+                        if child:IsA("Decal") or child:IsA("Texture") then
+                            local decalClone = child:Clone()
+                            decalClone.Parent = fakeGlove
+                        end
+                    end
+
+                    for _, child in ipairs(realGlove:GetChildren()) do
+                        if child:IsA("Decal") or child:IsA("Texture") then
+                            child:Destroy()
+                        end
+                    end
+
+                    fakeGlove.CFrame = realGlove.CFrame
+                    realGlove.Transparency = 1
+                    realGlove.Size = Vector3.new(Value, Value, Value)
+                    local box = realGlove:FindFirstChild("HitboxVisualizer")
+                    if not box then
+                        box = Instance.new("SelectionBox")
+                        box.Name = "HitboxVisualizer"
+                        box.Adornee = realGlove
+                        box.Parent = realGlove
+                    end
+
+                    task.spawn(function()
+                        while fakeGlove and realGlove and fakeGlove.Parent == tool and realGlove.Parent == tool do
+                            fakeGlove.CFrame = realGlove.CFrame
+                            task.wait()
+                        end
+                    end)
+                end
+            end
+
+            local character = player.Character
+            if character then
+                local tool = character:FindFirstChildOfClass("Tool")
+                if tool and tool:FindFirstChild("Glove") then
+                    local realGlove = tool.Glove
+
+                    for _, child in ipairs(realGlove:GetChildren()) do
+                        if child:IsA("Decal") or child:IsA("Texture") then
+                            child:Destroy()
+                        end
+                    end
+
+                    local fakeGlove = tool:FindFirstChild("FakeGlove")
+                    if not fakeGlove then
+                        fakeGlove = realGlove:Clone()
+                        fakeGlove.Name = "FakeGlove"
+                        fakeGlove.Parent = tool
+                        fakeGlove.Anchored = false
+                        fakeGlove.CanCollide = false
+                        fakeGlove.Transparency = 0
+                    end
+
+                    for _, child in ipairs(realGlove:GetChildren()) do
+                        if child:IsA("Decal") or child:IsA("Texture") then
+                            local decalClone = child:Clone()
+                            decalClone.Parent = fakeGlove
+                        end
+                    end
+
+                    fakeGlove.CFrame = realGlove.CFrame
+
+                    realGlove.Transparency = 1
+
+                    realGlove.Size = Vector3.new(Value, Value, Value)
+
+                    local box = realGlove:FindFirstChild("HitboxVisualizer")
+                    if not box then
+                        box = Instance.new("SelectionBox")
+                        box.Name = "HitboxVisualizer"
+                        box.Adornee = realGlove
+                        box.Parent = realGlove
+                    end
+
+                    task.spawn(function()
+                        while fakeGlove and realGlove and fakeGlove.Parent == tool and realGlove.Parent == tool do
+                            fakeGlove.CFrame = realGlove.CFrame
+                            task.wait()
+                        end
+                    end)
+                end
+            end
+        end
+
+        checkTools()
+    end    
+})
 
 local ToggleEnabled = false
-local Tab3 = Window:MakeTab({
+local Tab4 = Window:MakeTab({
     Name = "Risky",
     Icon = "rbxassetid://7734058599",
     PremiumOnly = false
 })
 
-Tab3:AddToggle({
+Tab4:AddToggle({
     Name = "Slow Slap Farm (boxer glove needed) [✅ STABLE]",
     Default = false,
     Callback = function(Value)
         BoxerFarmEnabled = Value
         if BoxerFarmEnabled then
-            -- Check if the player has the Boxer glove
+
             local function PlrHasGlove(Name)
                 local LocalPlayer = game.Players.LocalPlayer
                 if LocalPlayer and LocalPlayer:FindFirstChild("_unlockedGloves") then
@@ -109,7 +258,7 @@ Tab3:AddToggle({
                     -- Start the loop when enabled
                     while isEnabled do
                         -- Check if the player is in the arena
-                        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("isInArena") and game.Players.LocalPlayer.Character.isInArena.Value == true then
+                        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("isInArena") and game.Players.LocalPlayer.Character.isInArena.Value == true and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
                             if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0 -- Kill the player
                             end
@@ -143,10 +292,10 @@ Tab3:AddToggle({
                                 }
                                 game:GetService("ReplicatedStorage").Events.Boxing:FireServer(unpack(args))
 
-                                wait(0.1)
+                                wait(0.01)
                             end
                         end
-                        wait(0.1)
+                        wait(0.01)
                     end
                 else
                     -- Kill the player when disabled
@@ -169,13 +318,12 @@ Tab3:AddToggle({
 
 
 
-Tab3:AddToggle({
+Tab4:AddToggle({
     Name = "Fast Slap Farm (el gato + replica) [⚠️ UNSTABLE]",
     Default = false,
     Callback = function(Value)
         ToggleEnabled = Value
         if ToggleEnabled then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/BypassAntiCheat/main/main.lua"))()
 
 if workspace:FindFirstChild("Safespot") == nil then
 local Safespot = Instance.new("Part",workspace)
@@ -220,13 +368,13 @@ end
     end
 })
 
-local Tab4 = Window:MakeTab({
+local Tab5 = Window:MakeTab({
     Name = "Other",
-    Icon = "rbxassetid://7733993147",
+    Icon = "rbxassetid://8997385628",
     PremiumOnly = false
 })
 
-Tab4:AddButton({
+Tab5:AddButton({
 	Name = "Serverhop",
 	Callback = function()
       		Time = 1 -- seconds
@@ -296,6 +444,22 @@ end
 
 -- If you'd like to use a script before server hopping (Like a Automatic Chest collector you can put the Teleport() after it collected everything.
 Teleport()
+  	end    
+})
+
+Tab5:AddButton({
+	Name = "Rejoin",
+	Callback = function()
+      	local ts = game:GetService("TeleportService")
+        local pmo = game:GetService("Players").LocalPlayer
+        ts:Teleport(game.PlaceId, pmo)
+  	end    
+})
+
+Tab5:AddButton({
+	Name = "Destroy UI",
+	Callback = function()
+      	OrionLib:Destroy()
   	end    
 })
 OrionLib:Init()
