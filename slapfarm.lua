@@ -230,103 +230,73 @@ Tab4:AddToggle({
     Default = false,
     Callback = function(Value)
         BoxerFarmEnabled = Value
+        
+        local function PlrHasGlove(Name)
+            local LocalPlayer = game.Players.LocalPlayer
+            if LocalPlayer and LocalPlayer:FindFirstChild("_unlockedGloves") then
+                if LocalPlayer._unlockedGloves:FindFirstChild(Name) and LocalPlayer._unlockedGloves:FindFirstChild(Name).Value == true then
+                    return true
+                end
+            end
+            return false
+        end
+
+        local function sendNotification(message)
+            local StarterGui = game:GetService("StarterGui")
+            StarterGui:SetCore("SendNotification", {
+                Title = "Note",
+                Text = message,
+                Duration = 5
+            })
+        end
+        
+        local Lobby = workspace.Lobby
+
         if BoxerFarmEnabled then
+            if not PlrHasGlove("Boxer") then
+                sendNotification("You must have the Boxer glove first.")
+                return
+            end
 
-            local function PlrHasGlove(Name)
-                local LocalPlayer = game.Players.LocalPlayer
-                if LocalPlayer and LocalPlayer:FindFirstChild("_unlockedGloves") then
-                    if LocalPlayer._unlockedGloves:FindFirstChild(Name) and LocalPlayer._unlockedGloves:FindFirstChild(Name).Value == true then
-                        return true
+            sendNotification("Boxer glove exists, starting slap farm...")
+            
+            spawn(function()
+                while BoxerFarmEnabled do
+                    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("isInArena") and game.Players.LocalPlayer.Character.isInArena.Value == true and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
+                        repeat wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health > 0
+                        wait(1)
                     end
+                    
+                    if game.Players.LocalPlayer.leaderstats and game.Players.LocalPlayer.leaderstats:FindFirstChild("Glove") and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
+                        fireclickdetector(Lobby.Boxer.ClickDetector)
+                    end
+                    
+                    for i = 1, 30 do
+                        for _, p in pairs(game.Players:GetPlayers()) do
+                            if not BoxerFarmEnabled then return end
+                            
+                            local args = {
+                                [1] = p,
+                                [2] = false
+                            }
+                            game:GetService("ReplicatedStorage").Events.Boxing:FireServer(unpack(args))
+                            
+                            local args = {
+                                [1] = p,
+                                [2] = true
+                            }
+                            game:GetService("ReplicatedStorage").Events.Boxing:FireServer(unpack(args))
+                            
+                            wait(0.01)
+                        end
+                    end
+                    wait(0.01)
                 end
-                return false
-            end
-
-            local function sendNotification(message)
-                local StarterGui = game:GetService("StarterGui")
-                StarterGui:SetCore("SendNotification", {
-                    Title = "Note",
-                    Text = message,
-                    Duration = 5
-                })
-            end
-
-            local isEnabled = false
-            local Lobby = workspace.Lobby
-
-            -- Core logic for the Boxer Slap Farm
-            local function toggleScript()
-                isEnabled = not isEnabled
-                if isEnabled then
-                    -- Check if the player has the Boxer glove
-                    if not PlrHasGlove("Boxer") then
-                        sendNotification("You must have the Boxer glove first.")
-                        isEnabled = false
-                        return
-                    else
-                        sendNotification("Boxer glove exists, starting slap farm...")
-                    end
-
-                    -- Start the loop when enabled
-                    while isEnabled do
-                        -- Check if the player is in the arena
-                        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("isInArena") and game.Players.LocalPlayer.Character.isInArena.Value == true and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
-                            if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                                game.Players.LocalPlayer.Character.Humanoid.Health = 0 -- Kill the player
-                            end
-
-                            -- Wait for the player to respawn
-                            repeat wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health > 0
-                            wait(1) -- Additional wait to ensure stability after respawn
-                        end
-
-                        -- Equip the Boxer glove after respawning or if not in the arena
-                        if game.Players.LocalPlayer.leaderstats and game.Players.LocalPlayer.leaderstats:FindFirstChild("Glove") and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
-                            fireclickdetector(Lobby.Boxer.ClickDetector)
-                        end
-
-                        for i = 1, 30 do
-                            for _, p in pairs(game.Players:GetPlayers()) do
-                                if not game.Players.LocalPlayer.Character or not game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") or game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
-                                    isEnabled = false -- Exit if the player dies
-                                    return
-                                end
-
-                                local args = {
-                                    [1] = p,
-                                    [2] = false
-                                }
-                                game:GetService("ReplicatedStorage").Events.Boxing:FireServer(unpack(args))
-
-                                local args = {
-                                    [1] = p,
-                                    [2] = true
-                                }
-                                game:GetService("ReplicatedStorage").Events.Boxing:FireServer(unpack(args))
-
-                                wait(0.01)
-                            end
-                        end
-                        wait(0.01)
-                    end
-                else
-                    -- Kill the player when disabled
-                    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                        game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                    end
-                end
-            end
-
-            -- Call the toggle function to start the process
-            toggleScript()
-        else
-            -- If the toggle is turned off, stop the script
-            if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            end
+            end)
         end
     end
 })
+
 
 
 
