@@ -1,3 +1,4 @@
+local Players = game.Players
 local GC = getconnections or get_signal_cons
 	if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
