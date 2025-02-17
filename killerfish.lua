@@ -143,10 +143,12 @@ button.Font = Enum.Font.SourceSansBold
 button.TextSize = 24
 button.BorderSizePixel = 2
 
+local isMobile = userInputService.TouchEnabled
+
 spawn(function()
     while true do
         local tool = player.Character and player.Character:FindFirstChild("killerfish")
-        button.Visible = tool ~= nil
+        button.Visible = tool ~= nil and isMobile
         wait(0.1)
     end
 end)
