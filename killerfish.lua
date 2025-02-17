@@ -5,13 +5,11 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5;
 })
 
-local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
     Title = "NOTE";
     Text = "YOU MUST HAVE GLOVE FISH TO USE THIS SCRIPT";
     Duration = 5;
 })
-
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -132,15 +130,32 @@ userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
     end
 end)
 
-local guiButton = player.PlayerGui:WaitForChild("ContextActionGui"):WaitForChild("ContextButtonFrame"):FindFirstChild("ContextActionButton")
+local coreGui = game:GetService("CoreGui")
+local screenGui = Instance.new("ScreenGui", coreGui)
+local button = Instance.new("TextButton", screenGui)
+button.Size = UDim2.new(0, 50, 0, 50)
+button.Position = UDim2.new(0.9, 0, 0.5, 0)
+button.Text = "E"
+button.Visible = false
+button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 24
+button.BorderSizePixel = 2
 
-if guiButton then
-    guiButton.MouseButton1Click:Connect(function()
-        if canUseAbility then
-            canUseAbility = false
-            charge()
-            wait(0.5)
-            canUseAbility = true
-        end
-    end)
-end
+spawn(function()
+    while true do
+        local tool = player.Character and player.Character:FindFirstChild("killerfish")
+        button.Visible = tool ~= nil
+        wait(0.1)
+    end
+end)
+
+button.MouseButton1Click:Connect(function()
+    if canUseAbility and player.Character and player.Character:FindFirstChild("killerfish") then
+        canUseAbility = false
+        killerfish()
+        wait(0.5)
+        canUseAbility = true
+    end
+end)
