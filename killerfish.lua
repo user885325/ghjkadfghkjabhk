@@ -96,14 +96,21 @@ local function playSound()
 end
 
 local function killerfish()
-    local camera = game.Workspace.CurrentCamera
     local replicatedStorage = game:GetService("ReplicatedStorage")
     local selfKnockback = replicatedStorage:FindFirstChild("SelfKnockback")
     if not selfKnockback then return end
 
-    local cameraLookVector = camera.CFrame.LookVector
-    local knockBackDirection = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
-    knockBackDirection = knockBackDirection + Vector3.new(0, 1, 0) * 0.5
+    local humanoid = character:FindFirstChild("Humanoid")
+    if not humanoid then return end
+
+    local moveDirection = humanoid.MoveDirection
+    local knockBackDirection
+
+    if moveDirection.Magnitude > 0 then
+        knockBackDirection = Vector3.new(moveDirection.X, 0.5, moveDirection.Z).Unit
+    else
+        knockBackDirection = Vector3.new(0, 1, 0)
+    end
 
     selfKnockback:FireServer({
         ["Force"] = 75,
@@ -162,7 +169,6 @@ button.MouseButton1Click:Connect(function()
     end
 end)
 
--- Handle respawn
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
     tool = character:FindFirstChild("fish") or player.Backpack:FindFirstChild("fish")
