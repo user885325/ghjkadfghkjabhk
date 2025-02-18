@@ -161,3 +161,9 @@ button.MouseButton1Click:Connect(function()
         canUseAbility = true
     end
 end)
+
+-- Handle respawn
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    tool = character:FindFirstChild("fish") or player.Backpack:FindFirstChild("fish")
+end)
