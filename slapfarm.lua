@@ -265,16 +265,17 @@ Tab4:CreateToggle({
     CurrentValue = false,
     Callback = function(Value)
         ToggleEnabled = Value
-        if ToggleEnabled then
+        while ToggleEnabled do
             if workspace:FindFirstChild("Safespot") == nil then
-                local Safespot = Instance.new("Part",workspace)
+                local Safespot = Instance.new("Part", workspace)
                 Safespot.Name = "Safespot"
-                Safespot.Position = Vector3.new(10000,-50,10000)
-                Safespot.Size = Vector3.new(500,100,500)
+                Safespot.Position = Vector3.new(10000, -50, 10000)
+                Safespot.Size = Vector3.new(500, 100, 500)
                 Safespot.Anchored = true
                 Safespot.CanCollide = true
                 Safespot.Transparency = .5
             end
+            
             fireclickdetector(workspace.Lobby["el gato"].ClickDetector)
             wait(0.5)
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Cat"):FireServer()
@@ -282,26 +283,40 @@ Tab4:CreateToggle({
             game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
             fireclickdetector(workspace.Lobby.Replica.ClickDetector)
             wait(0.3)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport2.CFrame
-            wait(0.3)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Safespot.CFrame + Vector3.new(0, 25, 0)
-            wait(0.5)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-            wait(0.1)
+
+            local character = game.Players.LocalPlayer.Character
+            if character and character:FindFirstChild("HumanoidRootPart") then
+                character.HumanoidRootPart.CFrame = workspace.Lobby.Teleport2.CFrame
+                wait(0.3)
+                character.HumanoidRootPart.CFrame = workspace.Safespot.CFrame + Vector3.new(0, 25, 0)
+                wait(0.5)
+                character.HumanoidRootPart.Anchored = true
+                wait(0.1)
+            end
+            
             game:GetService("ReplicatedStorage"):WaitForChild("Duplicate"):FireServer()
             wait(0.5)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+            character.HumanoidRootPart.Anchored = false
+            
             local playername = game.Players.LocalPlayer.Name
-            local args = {
-                [1] = workspace:WaitForChild("\195\133" .. playername):WaitForChild("Torso")
-            }
-            for i = 1, 20000 do 
-                game:GetService("ReplicatedStorage"):WaitForChild("ReplicaHit"):FireServer(unpack(args))
+            local target = workspace:FindFirstChild("\195\133" .. playername)
+
+            while target and target:FindFirstChild("Torso") and ToggleEnabled do
+                game:GetService("ReplicatedStorage"):WaitForChild("ReplicaHit"):FireServer(target.Torso)
                 wait(0.001)
-                if i == 20000 then
-                    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                end
+                target = workspace:FindFirstChild("\195\133" .. playername)
             end
+
+            if character and character:FindFirstChild("Humanoid") then
+                character.Humanoid.Health = 0
+            end
+            
+            repeat
+                wait(0.5)
+                character = game.Players.LocalPlayer.Character
+            until character and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0
+            
+            wait(1)
         end
     end
 })
@@ -392,4 +407,3 @@ Tab5:CreateButton({
         Rayfield:Destroy()
     end
 })
-Rayfield:Init()
