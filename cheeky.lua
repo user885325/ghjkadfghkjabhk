@@ -106,7 +106,7 @@ local function jokeLoop()
                 until newJokeIndex ~= jokeIndex
                 
                 jokeIndex = newJokeIndex
-                ChatService:Chat(player.Character.Head, jokes[jokeIndex], 0)
+                ChatService:Chat(sphere, jokes[jokeIndex], 0)
                 wait(3)
             end
         end
