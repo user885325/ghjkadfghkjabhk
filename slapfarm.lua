@@ -321,7 +321,24 @@ Tab4:CreateToggle({
     end
 })
 
+
 local Tab5 = Window:CreateTab("Other", 8997385628)
+
+Tab5:CreateButton({
+    Name = "Get Boxer Glove",
+    Callback = function()
+        local StarterGui = game:GetService("StarterGui")
+        StarterGui:SetCore("SendNotification", {
+            Title = "NOTE";
+            Text = "PLEASE EXECUTE THE SCRIPT THAT WAS COPIED TO YOUR CLIPBOARD AFTER YOU GET TELEPORTED TO BRAZIL.";
+            Duration = 5;
+        })
+        setclipboard("if game.PlaceId==7234087065 then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(4231.26123046875,3505.86376953125,270.4519958496094)wait(0.5)fireclickdetector(workspace.BoxingGloves.ClickDetector)wait(1)game:GetService('TeleportService'):Teleport(6403373529)end")
+        wait(5)
+        game:GetService("TeleportService"):Teleport(7234087065)
+    end
+})
+
 Tab5:CreateButton({
     Name = "Serverhop",
     Callback = function()
