@@ -1,4 +1,4 @@
-local slapmode = _G.slapmode 
+local slapmode = G.slapmode
 local feaura = _G.feaura
 local fakeaura = _G.fakeaura
 local godmode = _G.godmode
@@ -6,7 +6,7 @@ local godmode = _G.godmode
 
 -----------------------------
 --[[
-_G.slapmode = 1 -- put 1 for free, put 2 for rhythm
+_G.slapmode = 1 -- put 1 for free, put 2 for free v2, put 3 for rhythm
 _G.feaura = false -- set to true to enable aura that all people see (need kinetic glove)
 _G.fakeaura = false -- set to true to enable aura that only you see
 _G.godmode = false -- set to true to get god mode
@@ -73,6 +73,7 @@ local function checkGlove()
             Text = "YOU NEED GLOVE KINETIC FOR THIS!!!";
             Duration = 5;
         })
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
     end
 end
 
@@ -87,9 +88,20 @@ end
 wait(1)
 if slapmode == 1 then
 elseif slapmode == 2 then
+elseif slapmode == 3 then
+if PlrHasGlove("Rhythm") then
     fireclickdetector(game.Workspace.Lobby["Rhythm"].ClickDetector)
 else
-    return
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+    Title = "ERROR";
+    Text = "YOU NEED GLOVE RHYTHM FOR THIS!!!";
+    Duration = 5;
+})
+end
+else
+return
 end
 
 wait(1)
@@ -145,6 +157,7 @@ local function playSlapAnimation()
 
     if character and character:FindFirstChild("Humanoid") then
         local humanoid = character:FindFirstChild("Humanoid")
+        humanoid.WalkSpeed = 30
         local animTrack = humanoid:LoadAnimation(slapAnimation)
         animTrack:Play()
         animTrack.Looped = false
@@ -165,11 +178,28 @@ tool.Activated:Connect(function()
     cooldown = true
     playSlapAnimation()
     if slapmode == 1 then
+    function isSpawned(player)
+   if workspace:FindFirstChild(player.Name) and player.Character:FindFirstChild("HumanoidRootPart") then
+       return true
+   else
+       return false
+   end
+end
+
+for i, v in pairs(game.Players:GetPlayers()) do
+       if isSpawned(v) and v ~= game.Players.LocalPlayer and not v.Character.Head:FindFirstChild("UnoReverseCard") then
+           if (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100 then
+               game:GetService("ReplicatedStorage").b:FireServer(v.Character["Right Arm"])
+               wait(0.1)
+           end
+       end
+   end
+    elseif slapmode == 2 then
         local args = {
             [1] = "dash"
         }
         game:GetService("ReplicatedStorage"):WaitForChild("slapstick"):FireServer(unpack(args))
-    elseif slapmode == 2 then
+    elseif slapmode == 3 then
         local args = {
             [1] = "AoeExplosion",
             [2] = 42
