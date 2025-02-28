@@ -1,4 +1,4 @@
-local slapmode = G.slapmode
+local slapmode = _G.slapmode
 local feaura = _G.feaura
 local fakeaura = _G.fakeaura
 local godmode = _G.godmode
