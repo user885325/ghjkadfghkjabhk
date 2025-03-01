@@ -7,6 +7,7 @@ local godmode = _G.godmode
 
 -----------------------------
 --[[
+--NOTE: SLAP MODE 1 DOESNT WORK WITH GOD MODE!!!
 _G.slapmode = 1 -- put 1 for free, put 2 for free v2, put 3 for rhythm
 _G.feaura = false -- set to true to enable aura that all people see (need kinetic glove)
 _G.fakeaura = false -- set to true to enable aura that only you see
@@ -127,6 +128,7 @@ end
 
 wait(1)
 if slapmode == 1 then
+fireclickdetector(game.Workspace.Lobby["Default"].ClickDetector)
 elseif slapmode == 2 then
 elseif slapmode == 3 then
 if PlrHasGlove("Rhythm") then
