@@ -1,6 +1,7 @@
 local slapmode = _G.slapmode
 local feaura = _G.feaura
 local fakeaura = _G.fakeaura
+local music = _G.music
 local godmode = _G.godmode
 
 
@@ -9,6 +10,7 @@ local godmode = _G.godmode
 _G.slapmode = 1 -- put 1 for free, put 2 for free v2, put 3 for rhythm
 _G.feaura = false -- set to true to enable aura that all people see (need kinetic glove)
 _G.fakeaura = false -- set to true to enable aura that only you see
+_G.music = false -- set to true to enable sound (only you hear)
 _G.godmode = false -- set to true to get god mode
 ]]
 -----------------------------
@@ -82,7 +84,45 @@ if feaura == true then
 end
 
 if fakeaura == true then
-local function a(b)local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local c=Instance.new("ParticleEmitter")c.Texture="rbxassetid://833874434"c.Brightness=2;c.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))})c.LightEmission=0.5;c.LightInfluence=1;c.Orientation=Enum.ParticleOrientation.FacingCamera;c.Size=NumberSequence.new(0.9)c.Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.116564,0.704918),NumberSequenceKeypoint.new(0.654908,0.73224),NumberSequenceKeypoint.new(1,1)})c.ZOffset=-1;c.Lifetime=NumberRange.new(2)c.Rate=50;c.Rotation=NumberRange.new(0)c.RotSpeed=NumberRange.new(-100,100)c.Speed=NumberRange.new(0.5)c.SpreadAngle=Vector2.new(15,15)c.EmissionDirection=Enum.NormalId.Top;c.Shape=Enum.ParticleEmitterShape.Box;c.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;c.ShapePartial=1;c.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;c.Enabled=true;local d=Instance.new("ParticleEmitter")d.Texture="rbxassetid://3876444567"d.Brightness=1;d.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,22,42)),ColorSequenceKeypoint.new(0.5,Color3.fromRGB(21,42,148)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,50,148))})d.LightEmission=0.8;d.LightInfluence=0;d.Orientation=Enum.ParticleOrientation.FacingCamera;d.Size=NumberSequence.new(1)d.Transparency=NumberSequence.new(0)d.Drag=0;d.Lifetime=NumberRange.new(0.1)d.Rate=100;d.SpreadAngle=Vector2.new(1,1)d.Speed=NumberRange.new(2)d.VelocitySpread=10;d.EmissionDirection=Enum.NormalId.Top;d.Shape=Enum.ParticleEmitterShape.Box;d.ShapeInOut=Enum.ParticleEmitterShapeInOut.Outward;d.ShapePartial=1;d.ShapeStyle=Enum.ParticleEmitterShapeStyle.Volume;d.Enabled=true;c.Parent=b;d.Parent=b;return c,d end;local e={}for f,g in ipairs({"Head","Torso","Left Arm","Right Arm","Left Leg","Right Leg"})do local b=game.Players.LocalPlayer.Character:FindFirstChild(g)if b then local h,i=a(b)table.insert(e,{aura=h,glitch=i})end end
+--Converted to LUA using ModelToLua v2.1
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local limbs = { "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg", "HumanoidRootPart" }
+
+local ModelEffect = game:GetObjects("rbxassetid://14949130713")[1]
+local particleEmitters = {}
+
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://9133844756"
+Sound.Looped = true
+Sound.Parent = character
+if music == true then
+Sound:Play()
+end
+
+local highlight = Instance.new("Highlight")
+highlight.FillColor = Color3.fromRGB(0, 0, 0)
+highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+highlight.Enabled = true
+highlight.Parent = character
+
+if ModelEffect then
+    for _, limbName in ipairs(limbs) do
+        local limb = character:FindFirstChild(limbName)
+        if limb then
+            for _, part in ipairs(ModelEffect.HumanoidRootPart:GetChildren()) do
+                if part:IsA("ParticleEmitter") then
+                    local clonedEmitter = part:Clone()
+                    clonedEmitter.Parent = limb
+                    clonedEmitter:Emit(100)
+                    table.insert(particleEmitters, clonedEmitter)
+                end
+            end
+        end
+    end
+end
+
 end
 
 wait(1)
@@ -206,7 +246,7 @@ for i, v in pairs(game.Players:GetPlayers()) do
         }
         game:GetService("ReplicatedStorage"):WaitForChild("rhythmevent"):FireServer(unpack(args))
     end
-    wait(1.5)
+    wait(1)
     cooldown = false
 end)
 
