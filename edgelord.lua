@@ -93,14 +93,6 @@ local limbs = { "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg
 local ModelEffect = game:GetObjects("rbxassetid://14949130713")[1]
 local particleEmitters = {}
 
-local Sound = Instance.new("Sound")
-Sound.SoundId = "rbxassetid://9133844756"
-Sound.Looped = true
-Sound.Parent = character
-if music == true then
-Sound:Play()
-end
-
 local highlight = Instance.new("Highlight")
 highlight.FillColor = Color3.fromRGB(0, 0, 0)
 highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
@@ -123,6 +115,14 @@ if ModelEffect then
     end
 end
 
+end
+
+if music == true then
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://9133844756"
+Sound.Looped = true
+Sound.Parent = game.Players.LocalPlayer.Character
+Sound:Play()
 end
 
 wait(1)
