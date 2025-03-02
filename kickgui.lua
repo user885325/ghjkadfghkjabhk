@@ -12,7 +12,6 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5;
 })
 
-
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 
 local MainWindow = Library:NewWindow("KICK GUI")
@@ -28,8 +27,9 @@ Tab1:CreateButton("Execute", function()
     local localPlayer = game.Players.LocalPlayer
     local targetPlayer = nil
 
+    -- Iterate through all players and find the one with the exact name
     for _, player in pairs(game.Players:GetChildren()) do
-        if player.Name:lower():sub(1, #TargetName) == TargetName then
+        if player.Name:lower() == TargetName then
             targetPlayer = player
             break
         end
