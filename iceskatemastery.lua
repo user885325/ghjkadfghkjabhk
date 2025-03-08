@@ -8,26 +8,23 @@ StarterGui:SetCore("SendNotification", {
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local distanceThreshold =10
+local distanceThreshold = 10
 
 local function isPlayerCloseToOtherPlayer(player)
     local character = player.Character
-    if not character then return false end
+    if not character then return false, nil end
     for _, otherPlayer in pairs(Players:GetPlayers()) do
-        if otherPlayer == player then continue end
-        
-        local otherCharacter = otherPlayer.Character
-        if not otherCharacter then continue end
-
-        local distance = (character.HumanoidRootPart.Position - otherCharacter.HumanoidRootPart.Position).Magnitude
-        
-        if distance <= distanceThreshold then
-            return true, otherPlayer
+        if otherPlayer ~= player and otherPlayer.Character then
+            local distance = (character.HumanoidRootPart.Position - otherPlayer.Character.HumanoidRootPart.Position).Magnitude
+            if distance <= distanceThreshold then
+                return true, otherPlayer
+            end
         end
     end
     
     return false, nil
 end
+
 RunService.Heartbeat:Connect(function()
     local localPlayer = Players.LocalPlayer
     if localPlayer.Character then
@@ -35,18 +32,17 @@ RunService.Heartbeat:Connect(function()
         local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
         local iceskate = character:FindFirstChild("Iceskate")
 
-	if iceskate then
-	    local fire = iceskate.Glove:FindFirstChild("EFFECT")
-            if fire then
-            else
+        if iceskate then
+            local fire = iceskate.Glove:FindFirstChild("EFFECT")
+            if not fire then
                 local particleEmitter = Instance.new("ParticleEmitter")
-		particleEmitter.Name = "EFFECT"
-		particleEmitter.Parent = iceskate.Glove
-		particleEmitter.TimeScale = 0.5
-		particleEmitter.Lifetime = NumberRange.new(0.2, 0.2)
-		particleEmitter.Rate = 250
-		particleEmitter.Speed = NumberRange.new(0, 0)
-	    end
+                particleEmitter.Name = "EFFECT"
+                particleEmitter.Parent = iceskate.Glove
+                particleEmitter.TimeScale = 0.5
+                particleEmitter.Lifetime = NumberRange.new(0.2, 0.2)
+                particleEmitter.Rate = 250
+                particleEmitter.Speed = NumberRange.new(0, 0)
+            end
         end
 
         if humanoidRootPart and humanoidRootPart:FindFirstChild("IceSkateBV") then
